@@ -369,6 +369,7 @@ task usercontrol () {
       if (vexRT[Btn6D]) {
           motor[Intake1] = vexRT[Btn6D] * -127 * con;
           motor[Intake2] = vexRT[Btn6D] * -127 * -con;
+          HoldShoot(3000);
           stop_intake = 1;
       }
       if (!vexRT[Btn6D]) {
@@ -378,6 +379,7 @@ task usercontrol () {
       if (vexRT[Btn5D]) {
           motor[Intake1] = vexRT[Btn5D] * 127 * con;
           motor[Intake2] = vexRT[Btn5D] * 127 * -con;
+          HoldShoot(3000);
           stop_intake = 1;
       }
       if (!vexRT[Btn5D]) {
