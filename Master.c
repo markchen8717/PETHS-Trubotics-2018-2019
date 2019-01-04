@@ -105,10 +105,10 @@ void ClawDown (int amount, int time) {
 
 // Should hold the catapult in place
 void HoldShoot (int time) {
-  // motor[Shooter]= 127;
-  // wait1Msec(1500);
-  motor[Shooter] = 10;
+	motor[Shooter] = 127;
+	// wait1Msec(1000);
   if (time != 0) wait1Msec(time);
+  motor[Shooter] = 30;
 }
 
 // For shooting the ball - automate it for now
@@ -123,7 +123,7 @@ void Shoot (int amount) {
 void BallIntake1 (int amount, int time) {
   motor[Intake1] = amount * con;
   motor[Intake2] = amount * -con;
-  HoldShoot(3000);
+  // HoldShoot(3000);
   if (time != 0) wait1Msec(time);
 }
 
@@ -131,7 +131,7 @@ void BallIntake1 (int amount, int time) {
 void BallIntake2 (int amount, int time) {
   motor[Intake1] = -amount * con;
   motor[Intake2] = -amount * -con;
-  HoldShoot(3000);
+  // HoldShoot(3000);
   if (time != 0) wait1Msec(time);
 }
 
@@ -284,6 +284,7 @@ void autoWithFlags (bool red) {
   }
 }
 
+
 task autonomous () {
   // ..........................................................................
   // Insert user code here.
@@ -309,7 +310,7 @@ task autonomous () {
 task usercontrol () {
   // User control code here, inside the loop
   while (1) {
-      // FORWARD AND BACKWARD
+       // FORWARD AND BACKWARD
       int tmp;
       if (vexRT[Ch2] > 0) {
           tmp = min(vexRT[Ch2], 100);
@@ -352,24 +353,22 @@ task usercontrol () {
           int res = vexRT[Btn8L];
           motor[Shooter] = res * 127 * -con;
           wait1Msec(1500);
-          motor[Shooter] = 0;
-          // motor[Shooter] = res*30*con;
       }
       // Shooter working CW (not really necessary)
       if (vexRT[Btn8R]) {
           int res = vexRT[Btn8R];
           motor[Shooter] = res * -127 * -con;
           wait1Msec(1500);
-          // motor[Shooter] = res*30*-con;
       }
+      if (vexRT[Btn8D]) {
+      	HoldShoot(1000);	
+  		}
       // Ball intake (CW) working
       if (vexRT[Btn6D]) {
           motor[Intake1] = vexRT[Btn6D] * -127 * con;
           motor[Intake2] = vexRT[Btn6D] * -127 * -con;
           wait1Msec(1000);
-          motor[Shooter] = 127;
-          wait1Msec(700);
-          motor[Shooter] = 30;
+          
           // HoldShoot(3000);
           stop_intake = 1;
       }
@@ -379,7 +378,7 @@ task usercontrol () {
           motor[Intake2] = vexRT[Btn5D] * 127 * -con;
           wait1Msec(1000);
           motor[Shooter] = 127;
-          wait1Msec(700);
+          wait1Msec(1000);
           motor[Shooter] = 30;
           // HoldShoot(3000);
           stop_intake = 1;
