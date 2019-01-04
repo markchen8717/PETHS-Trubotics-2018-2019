@@ -108,7 +108,7 @@ void HoldShoot (int time) {
   motor[Shooter] = 127;
   // wait1Msec(1000);
   if (time != 0) wait1Msec(time);
-  motor[Shooter] = 30;
+  motor[Shooter] = 50;
 }
 
 // For shooting the ball - automate it for now
@@ -347,7 +347,7 @@ task usercontrol () {
       else {
           motor[Claw] = 0;
       }
-      /* Need to make sure catapult arm stays in place for ball intake - Use a potentiometer!!! */
+       /* Need to make sure catapult arm stays in place for ball intake - Use a potentiometer!!! */
       // Shooter working CCW (make sure it goes back down again after shooting up)
       if (vexRT[Btn8L]) {
           int res = vexRT[Btn8L];
@@ -355,16 +355,24 @@ task usercontrol () {
           wait1Msec(1500);
           motor[Shooter] = 0;
       }
-      // Shooter working CW (not really necessary)
+    
       if (vexRT[Btn8R]) {
-          int res = vexRT[Btn8R];
-          motor[Shooter] = res * -127 * -con;
-          wait1Msec(1500);
-          motor[Shooter] = 0;
+          HoldShoot(1200);
       }
-      if (vexRT[Btn8D]) {
-          HoldShoot(1500);  
-      }
+      
+      //manuals
+      if(vexRT[Btn8U])
+      {
+      	motor[Shooter] =   -127 * -con;
+    }
+    else if (vexRt[Btn8D])
+    {
+   		motor[Shooter] = 12*-con; 	
+  }
+    else
+    {
+   		motor[Shooter] = 0; 	
+  }
       // Ball intake (CW) working
       if (vexRT[Btn6D]) {
           motor[Intake1] = vexRT[Btn6D] * -127 * con;
