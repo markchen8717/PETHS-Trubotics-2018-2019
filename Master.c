@@ -335,18 +335,18 @@ task usercontrol () {
           motor[DriveRight2] = vexRT[Btn6U] * -127 * -con;
           motor[DriveLeft2] = vexRT[Btn6U] * 127 * -con;
       }
-      // Claw angle rotation (to go up) not working - need to replace motor most likely
-      if (vexRT[Btn7U]) {
-          motor[Claw] = vexRT[Btn7U] * 127 * -con;
-      }
-      if (!vexRT[Btn7U]) {
-          motor[Claw] = 0;
-      }
       // Claw angle rotation (to go down) working
       if (vexRT[Btn7L]) {
           motor[Claw] = vexRT[Btn7L] * 127 * con;
       }
       if (!vexRT[Btn7L]) {
+          motor[Claw] = 0;
+      }
+      // Claw angle rotation (to go up) not working - need to replace motor most likely
+      if (vexRT[Btn7U]) {
+          motor[Claw] = vexRT[Btn7U] * 127 * -con;
+      }
+      if (!vexRT[Btn7U]) {
           motor[Claw] = 0;
       }
       /* Need to make sure catapult arm stays in place for ball intake - Use a potentiometer!!! */
@@ -371,8 +371,8 @@ task usercontrol () {
           motor[Intake2] = vexRT[Btn6D] * -127 * -con;
           wait1Msec(1000);
           motor[Shooter] = 127;
-      		wait1Msec(700);
-      		motor[Shooter] = 30;
+          wait1Msec(700);
+          motor[Shooter] = 30;
           // HoldShoot(3000);
           stop_intake = 1;
       }
@@ -385,8 +385,8 @@ task usercontrol () {
           motor[Intake2] = vexRT[Btn5D] * 127 * -con;
           wait1Msec(1000);
           motor[Shooter] = 127;
-      		wait1Msec(700);
-      		motor[Shooter] = 30;
+          wait1Msec(700);
+          motor[Shooter] = 30;
           // HoldShoot(3000);
           stop_intake = 1;
       }
