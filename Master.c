@@ -111,8 +111,16 @@ void HoldShoot (int time) {
   motor[Shooter] = 50;
 }
 
-// For shooting the ball - automate it for now
-void Shoot (int amount) {
+// For shooting the ball up - automate it for now
+void ShootUp (int amount) {
+  motor[Shooter] = -amount * -con;
+  wait1Msec(1500);
+  motor[Shooter] = 0;
+  // if (time != 0) wait1Msec(time);
+}
+
+// For shooting the ball down - automate it for now
+void ShootDown (int amount) {
   motor[Shooter] = amount * -con;
   wait1Msec(1500);
   motor[Shooter] = 0;
@@ -240,7 +248,7 @@ void autoWithFlags (bool red) {
     StopDrive();
     DriveB(127, 500);
     StopDrive();
-    Shoot(127);
+    ShootDown(127);
     // Now flip the mobile goal over
     TurnL(127, 500);
     StopDrive();
@@ -268,7 +276,7 @@ void autoWithFlags (bool red) {
     StopDrive();
     DriveB(127, 500);
     StopDrive();
-    Shoot(127);
+    ShootDown(127);
     // Now flip the mobile goal over
     TurnR(127, 500);
     StopDrive();
@@ -355,24 +363,22 @@ task usercontrol () {
           wait1Msec(1500);
           motor[Shooter] = 0;
       }
-    
+      // For locking shooter in place
       if (vexRT[Btn8R]) {
           HoldShoot(1200);
       }
-      
-      //manuals
-      if(vexRT[Btn8U])
-      {
-      	motor[Shooter] =   -127 * -con;
-    }
-    else if (vexRt[Btn8D])
-    {
-   		motor[Shooter] = 12*-con; 	
-  }
-    else
-    {
-   		motor[Shooter] = 0; 	
-  }
+      /* Manual buttons for shooting */
+      // Make shooter go up
+      if (vexRT[Btn8U]) {
+          motor[Shooter] = -127 * -con;
+      }
+      // Make shooter go down
+      else if (vexRt[Btn8D]) {
+          motor[Shooter] = 127 * -con;   
+      }
+      else {
+          motor[Shooter] = 0;   
+      }
       // Ball intake (CW) working
       if (vexRT[Btn6D]) {
           motor[Intake1] = vexRT[Btn6D] * -127 * con;
