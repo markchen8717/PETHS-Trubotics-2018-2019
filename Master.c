@@ -105,8 +105,8 @@ void ClawDown (int amount, int time) {
 
 // Should hold the catapult in place
 void HoldShoot (int time) {
-	motor[Shooter] = 127;
-	// wait1Msec(1000);
+  motor[Shooter] = 127;
+  // wait1Msec(1000);
   if (time != 0) wait1Msec(time);
   motor[Shooter] = 30;
 }
@@ -353,22 +353,22 @@ task usercontrol () {
           int res = vexRT[Btn8L];
           motor[Shooter] = res * 127 * -con;
           wait1Msec(1500);
+          motor[Shooter] = 0;
       }
       // Shooter working CW (not really necessary)
       if (vexRT[Btn8R]) {
           int res = vexRT[Btn8R];
           motor[Shooter] = res * -127 * -con;
           wait1Msec(1500);
+          motor[Shooter] = 0;
       }
       if (vexRT[Btn8D]) {
-      	HoldShoot(1000);	
-  		}
+          HoldShoot(1500);  
+      }
       // Ball intake (CW) working
       if (vexRT[Btn6D]) {
           motor[Intake1] = vexRT[Btn6D] * -127 * con;
           motor[Intake2] = vexRT[Btn6D] * -127 * -con;
-          wait1Msec(1000);
-          
           // HoldShoot(3000);
           stop_intake = 1;
       }
@@ -376,10 +376,6 @@ task usercontrol () {
       else if (vexRT[Btn5D]) {
           motor[Intake1] = vexRT[Btn5D] * 127 * con;
           motor[Intake2] = vexRT[Btn5D] * 127 * -con;
-          wait1Msec(1000);
-          motor[Shooter] = 127;
-          wait1Msec(1000);
-          motor[Shooter] = 30;
           // HoldShoot(3000);
           stop_intake = 1;
       }
