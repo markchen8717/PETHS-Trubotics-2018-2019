@@ -386,7 +386,7 @@ task usercontrol () {
           // HoldShoot(3000);
           stop_intake = 1;
       }
-      // Ball intake (CCW) not working - hardware problem
+      // Ball intake (CCW) working
       else if (vexRT[Btn5D]) {
           motor[Intake1] = vexRT[Btn5D] * 127 * con;
           motor[Intake2] = vexRT[Btn5D] * 127 * -con;
